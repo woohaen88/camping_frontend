@@ -1,7 +1,9 @@
 import { Box, Grid, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaWonSign } from "react-icons/fa";
 import { getCampGrounds } from "../../api";
+import { Link } from "react-router-dom";
+import CampGround from "../CampGround";
 
 interface IPhoto {
   id: string;
@@ -22,7 +24,7 @@ interface IOwner {
 }
 
 interface ICampGroundSchema {
-  id: string;
+  id: number;
   name: string;
   address: string;
   price: number;
@@ -47,6 +49,7 @@ export default function Home() {
       px={10}
       columnGap={4}
       rowGap={8}
+      w={"100%"}
       templateColumns={{
         sm: "1fr", // 480px
         md: "1fr, 1fr", // 768px
@@ -57,29 +60,17 @@ export default function Home() {
     >
       {data?.map((campground) => {
         return (
-          <VStack key={campground.id} alignItems={"flex-start"}>
-            <Box rounded={"2xl"} overflow={"hidden"}>
-              <Image src="https://a0.muscache.com/im/pictures/miso/Hosting-668146487515150072/original/8ff2a532-e0cd-41a2-9164-554c4d9eb28a.jpeg?im_w=720" />
-            </Box>
-            <VStack alignItems={"flex-start"} spacing={-0.5}>
-              <Grid templateColumns={"6fr 1fr"}>
-                <Text as={"b"}>{campground.address}</Text>
-                <HStack>
-                  <FaStar size={"0.8rem"} />
-                  <Text>{campground.ratings}</Text>
-                </HStack>
-              </Grid>
-
-              <Text fontSize={"md"}>{campground.owner.username}: username</Text>
-              <Text fontSize={"0.9rem"}>
-                최근방문일시: {campground.check_in} ~ {campground.check_out}
-              </Text>
-            </VStack>
-
-            <Text>
-              <Text as={"b"}>{campground.price}</Text>/night
-            </Text>
-          </VStack>
+          <CampGround
+            key={campground.id}
+            id={campground.id}
+            imageURL={campground.photos[0].file}
+            address={campground.address}
+            ratings={campground.ratings}
+            owner={campground.owner}
+            check_in={campground.check_in}
+            check_out={campground.check_out}
+            price={campground.price}
+          />
         );
       })}
     </Grid>

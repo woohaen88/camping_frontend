@@ -1,3 +1,4 @@
+import { QueryFunctionContext } from "@tanstack/react-query"
 import axios from "axios"
 
 const instance = axios.create({
@@ -6,4 +7,9 @@ const instance = axios.create({
 
 export const getCampGrounds = () => {
     return instance.get(`camping/`).then(response => response.data)
+}
+
+export const getCampGround = ({queryKey}:QueryFunctionContext) => {
+    const [_, campGroundId] = queryKey
+    return instance.get(`camping/${campGroundId}`).then(response => response.data)
 }
