@@ -1,9 +1,18 @@
-import { Box, Button, HStack, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  HStack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import LoginModal from "./LoginModal";
 import SignupModal from "./SignupModal";
+import useUser from "../lib/useUser";
 
 export default function Header() {
+  const { userIsLoading, user, userIsLoggedIn } = useUser();
   const {
     isOpen: LoginIsOpen,
     onClose: LoginOnClose,
@@ -27,8 +36,16 @@ export default function Header() {
         </Box>
       </Link>
       <HStack>
-        <Button onClick={LoginOnOpen}>Log in</Button>
-        <Button onClick={SignUpOnOpen}>Sign up</Button>
+        {!userIsLoading ? (
+          !userIsLoggedIn ? (
+            <>
+              <Button onClick={LoginOnOpen}>Log in</Button>
+              <Button onClick={SignUpOnOpen}>Sign up</Button>
+            </>
+          ) : (
+            <Avatar />
+          )
+        ) : null}
       </HStack>
       <LoginModal isOpen={LoginIsOpen} onClose={LoginOnClose} />
       <SignupModal isOpen={SignUpIsOpen} onClose={SignUpOnClose} />

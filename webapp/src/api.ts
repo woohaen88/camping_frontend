@@ -13,3 +13,7 @@ export const getCampGround = ({queryKey}:QueryFunctionContext) => {
     const [_, campGroundId] = queryKey
     return instance.get(`camping/${campGroundId}`).then(response => response.data)
 }
+
+export const getMe = () => {
+    return instance.get("user/me/").then((response)=>response.data)
+}
