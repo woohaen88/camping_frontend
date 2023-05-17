@@ -43,7 +43,7 @@ export default function Header() {
               <Button onClick={SignUpOnOpen}>Sign up</Button>
             </>
           ) : (
-            <Avatar />
+            <Avatar name={user.username} src={user.avatar} />
           )
         ) : null}
       </HStack>
