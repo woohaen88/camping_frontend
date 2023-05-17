@@ -48,7 +48,16 @@ export default function CampGround({
     <Link to={`/camping/${id}/`}>
       <VStack key={id} alignItems={"flex-start"}>
         <Box rounded={"2xl"} overflow={"hidden"} w={"100%"} minH={"180px"}>
-          <Image src={imageURL} w="100%" objectFit={"cover"} minH={"180px"} />
+          <Image
+            src={
+              Boolean(imageURL)
+                ? imageURL
+                : "https://imagedelivery.net/4Rif_N_iuDtYv_8KyNzDpg/fbfb9310-276f-4057-6138-3fed93a6f000/public"
+            }
+            w="100%"
+            objectFit={"cover"}
+            minH={"180px"}
+          />
         </Box>
         <Box w={"100%"} px={"3"}>
           <HStack justifyContent={"space-between"}>
