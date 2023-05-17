@@ -5,11 +5,13 @@ import {
   CardHeader,
   Grid,
   GridItem,
+  HStack,
   Heading,
   Image,
   Stack,
   StackDivider,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { getCampGround } from "../api";
@@ -54,38 +56,85 @@ export default function CampGroundDetail() {
           );
         })}
       </Grid>
-      
-      <Text>여기에 작성자</Text>
+
+      <HStack mt={8} mb={8}>
+        <Heading fontSize={"3xl"}>{data?.owner.username}님의 캠핑 기록</Heading>
+      </HStack>
       <Card>
         <CardHeader>
-          <Heading size="md">Client Report</Heading>
+          <Heading size="md">CampGround Info</Heading>
         </CardHeader>
 
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
             <Box>
               <Heading size="xs" textTransform="uppercase">
-                Summary
+                Name
               </Heading>
               <Text pt="2" fontSize="sm">
-                View a summary of all your clients over the last month.
+                {data?.name}
               </Text>
             </Box>
             <Box>
               <Heading size="xs" textTransform="uppercase">
-                Overview
+                address
               </Heading>
               <Text pt="2" fontSize="sm">
-                Check out the overview of your clients.
+                {data?.address}
               </Text>
             </Box>
             <Box>
               <Heading size="xs" textTransform="uppercase">
-                Analysis
+                description
               </Heading>
               <Text pt="2" fontSize="sm">
-                See a detailed analysis of all your business clients.
+                {data?.description}
               </Text>
+            </Box>
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                price
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                {data?.price}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                Visit Date
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                {data?.check_in} ~ {data?.check_out}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                Pet friendly
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                {data?.pet_friendly}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                EV Friendly
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                {data?.ev_friendly}
+              </Text>
+            </Box>
+
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                Tags
+              </Heading>
+              {data?.tags.map((tag) => {
+                return (
+                  <Text pt="2" fontSize="sm">
+                    {tag.name}
+                  </Text>
+                );
+              })}
             </Box>
           </Stack>
         </CardBody>

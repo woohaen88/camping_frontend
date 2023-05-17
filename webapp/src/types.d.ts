@@ -1,3 +1,7 @@
+export interface ITag{
+    id: number;
+    name: string;
+}
 
 export interface IPhoto {
     id: number;
@@ -21,7 +25,7 @@ export interface ICampGroundDetail {
     id: number;
     name: string;
     address: string;
-    print: number;
+    price: number;
     tags: ITag[];
     photos: IPhoto[];
     owner: IOwner;
@@ -34,3 +38,4 @@ export interface ICampGroundDetail {
     pet_friendly: boolean;
     ev_friendly: boolean;    
 }
+
