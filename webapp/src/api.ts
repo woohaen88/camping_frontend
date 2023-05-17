@@ -55,3 +55,25 @@ export const emailLogin = ({ email, password }: IEmailLoginVariables) => {
 // "message": "login success"
 //   "detail": "Invalid Credentials"
 
+
+interface IUploadCampGroundVariables {
+    name: string;
+    address: string;
+    description: string;
+    price: number;
+    files: FileList;
+    check_in: string;
+    check_out: string;
+    ratings: number;
+    pet_friendly: boolean;
+    ev_friendly: boolean;
+}
+
+export const createCampGround = (variables: IUploadCampGroundVariables) => {
+    return instance.post("camping/", variables, {
+        headers: {
+            "X-CSRFToken": Cookie.get("csrftoken") || "",
+            "Content-Type": "multipart/form-data",
+        }
+    })
+}

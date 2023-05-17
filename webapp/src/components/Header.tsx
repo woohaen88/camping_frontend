@@ -74,6 +74,9 @@ export default function Header() {
                 <Avatar name={user.username} src={user.avatar} />
               </MenuButton>
               <MenuList>
+                <Link to="/camping/upload/">
+                  <MenuItem>Post</MenuItem>
+                </Link>
                 <MenuItem onClick={onLogOut}>Log Out</MenuItem>
               </MenuList>
             </Menu>

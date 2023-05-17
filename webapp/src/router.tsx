@@ -3,6 +3,7 @@ import Root from "./components/Root";
 import Home from "./components/routes/Home";
 import NotFound from "./components/routes/NotFound";
 import CampGroundDetail from "./components/CampGroundDetail";
+import UploadCampGround from "./components/routes/UploadCampGround";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "camping/upload/",
+        element: <UploadCampGround />,
       },
       {
         path: "camping/:campGroundId/",
