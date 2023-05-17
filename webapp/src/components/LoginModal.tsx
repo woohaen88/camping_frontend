@@ -15,6 +15,8 @@ import {
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { emailLogin } from "../api";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -32,6 +34,17 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginForm>();
+  const mutation = useMutation(emailLogin, {
+    onMutate: () => {
+      console.log("muatation startring");
+    },
+    onSuccess: () => {
+      console.log("mutation success");
+    },
+    onError: () => {
+      console.log("mutation error");
+    },
+  });
   const onSubmit = (data: ILoginForm) => {
     console.log(data);
   };
@@ -83,7 +96,13 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
               {errors.password?.message}
             </Text>
           </VStack>
-          <Button type="submit" mt={4} w={"100%"} colorScheme={"blue"}>
+          <Button
+            isLoading={mutation.isLoading}
+            type="submit"
+            mt={4}
+            w={"100%"}
+            colorScheme={"blue"}
+          >
             Log in
           </Button>
           <SocialLogin />

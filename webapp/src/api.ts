@@ -27,3 +27,31 @@ export const logOut = () => {
         }
     }).then((response) => response.data)
 }
+
+
+export interface IEmailLoginVariables {
+    email: string;
+    password: string;
+}
+
+export interface IEmailLoginSuccess {
+    message: string;
+}
+
+export interface IEmailLoginError {
+    detail: string;
+}
+
+
+
+export const emailLogin = ({ email, password }: IEmailLoginVariables) => {
+    return instance.post("user/log-in/", { email, password }, {
+        headers: {
+            "X-CSRFToken": Cookie.get("csrftoken") || "",
+        }
+    })
+}
+
+// "message": "login success"
+//   "detail": "Invalid Credentials"
+
