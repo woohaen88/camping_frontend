@@ -49,7 +49,7 @@ export const emailLogin = ({ email, password }: IEmailLoginVariables) => {
         headers: {
             "X-CSRFToken": Cookie.get("csrftoken") || "",
         }
-    })
+    }).then((response) => response.data)
 }
 
 // "message": "login success"

@@ -15,8 +15,13 @@ import {
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { emailLogin } from "../api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  IEmailLoginError,
+  IEmailLoginSuccess,
+  IEmailLoginVariables,
+  emailLogin,
+} from "../api";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -34,19 +39,31 @@ export default function LoginModal({ onClose, isOpen }: LoginModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginForm>();
-  const mutation = useMutation(emailLogin, {
+
+  const queryClient = useQueryClient();
+
+  // mutation generic => Success, error, variable
+  const mutation = useMutation<
+    IEmailLoginSuccess,
+    IEmailLoginError,
+    IEmailLoginVariables
+  >(emailLogin, {
     onMutate: () => {
       console.log("muatation startring");
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data.message);
       console.log("mutation success");
+      onClose();
+      queryClient.refetchQueries(["me"]);
     },
-    onError: () => {
+    onError: (error) => {
       console.log("mutation error");
+      console.log(error.detail);
     },
   });
-  const onSubmit = (data: ILoginForm) => {
-    console.log(data);
+  const onSubmit = ({ email, password }: ILoginForm) => {
+    mutation.mutate({ email, password });
   };
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
