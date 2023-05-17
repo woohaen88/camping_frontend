@@ -1,4 +1,16 @@
-import { Box, Grid, GridItem, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Stack,
+  StackDivider,
+  Text,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { getCampGround } from "../api";
 import { useQuery } from "@tanstack/react-query";
@@ -42,6 +54,42 @@ export default function CampGroundDetail() {
           );
         })}
       </Grid>
+      
+      <Text>여기에 작성자</Text>
+      <Card>
+        <CardHeader>
+          <Heading size="md">Client Report</Heading>
+        </CardHeader>
+
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing="4">
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                Summary
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                View a summary of all your clients over the last month.
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                Overview
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                Check out the overview of your clients.
+              </Text>
+            </Box>
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                Analysis
+              </Heading>
+              <Text pt="2" fontSize="sm">
+                See a detailed analysis of all your business clients.
+              </Text>
+            </Box>
+          </Stack>
+        </CardBody>
+      </Card>
     </Box>
   );
 }

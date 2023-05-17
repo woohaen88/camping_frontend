@@ -6,17 +6,20 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  HStack,
   Heading,
   Input,
   InputGroup,
   InputLeftAddon,
+  InputLeftElement,
+  Text,
   Textarea,
   VStack,
   useToast,
 } from "@chakra-ui/react";
 import ProtectedPage from "../ProtectedPage";
 import { useForm } from "react-hook-form";
-import { FaWonSign } from "react-icons/fa";
+import { FaFile, FaWonSign } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { createCampGround } from "../../api";
 
@@ -51,7 +54,7 @@ export default function UploadCampGround() {
             onSubmit={handleSubmit(onSubmit)}
           >
             {/* 캠핑장이름 시작  */}
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>캠핑장이름</FormLabel>
               <Input
                 {...register("name", { required: "이 항목은 필수입니다." })}
@@ -64,8 +67,8 @@ export default function UploadCampGround() {
             {/* 캠핑장이름 끝  */}
 
             {/* 캠핑장주소 시작  */}
-            <FormControl>
-              <FormLabel>캠핑장주소</FormLabel>
+            <FormControl isRequired>
+              <FormLabel>캠핑장 주소 입력해주세요</FormLabel>
               <Input
                 {...register("address", { required: "이 항목은 필수입니다." })}
                 type="text"
@@ -87,10 +90,11 @@ export default function UploadCampGround() {
             {/* 캠핑장 설명 끝 */}
 
             {/* 캠핑장가격 시작  */}
-            <FormControl>
-              <FormLabel>캠핑장가격</FormLabel>
+            <FormControl isRequired>
+              <FormLabel>캠핑장 가격</FormLabel>
               <InputGroup>
                 <InputLeftAddon children={<FaWonSign />} />
+
                 <Input
                   {...register("price", { required: "이 항목은 필수입니다." })}
                   type="number"
@@ -104,14 +108,17 @@ export default function UploadCampGround() {
             {/* 캠핑장가격 끝  */}
 
             {/* 캠핑장사진 시작 (5장이상)  */}
-            <FormControl>
-              <FormLabel>캠핑장사진</FormLabel>
+            <FormControl isRequired>
+              <FormLabel>사진등록</FormLabel>
+
               <Input
+                className="form-control"
                 {...register("files")}
                 type="file"
                 multiple
                 accept="image/*"
               />
+
               <FormHelperText fontSize={"xs"}>
                 최소 5장이상올려주세요.
               </FormHelperText>
@@ -123,8 +130,9 @@ export default function UploadCampGround() {
             {/* 캠핑장태그 끝 */}
 
             {/* 캠핑장 체크인 시작 */}
-            <FormControl>
-              <FormLabel>캠핑장을 언제 갔나요?</FormLabel>
+            <FormControl isRequired>
+              <FormLabel>캠핑장을 언제갔나요?</FormLabel>
+
               <Input
                 {...register("check_in", { required: "이 항목은 필수입니다." })}
                 type="date"
@@ -136,8 +144,8 @@ export default function UploadCampGround() {
             {/* 캠핑장 체크인 끝 */}
 
             {/* 캠핑장 체크아웃 시작 */}
-            <FormControl>
-              <FormLabel>캠핑장을 언제 갔나요?</FormLabel>
+            <FormControl isRequired>
+              <FormLabel>얼마나 오래 있었나요??</FormLabel>
               <Input
                 {...register("check_out", {
                   required: "이 항목은 필수입니다.",
@@ -151,8 +159,8 @@ export default function UploadCampGround() {
             {/* 캠핑장 체크아웃 끝 */}
 
             {/* 캠핑장 평점 시작 */}
-            <FormControl>
-              <FormLabel>평점은 어느정도???</FormLabel>
+            <FormControl isRequired>
+              <FormLabel>평점은 어느정도라 생각하세요?</FormLabel>
               <Input
                 {...register("ratings", { required: "이 항목은 필수입니다." })}
                 type="number"
