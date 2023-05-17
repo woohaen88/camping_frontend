@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import { getCampGround } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import { ICampGroundDetail } from "../types";
+import { FaWonSign } from "react-icons/fa";
 
 export default function CampGroundDetail() {
   const { campGroundId } = useParams();
@@ -95,9 +96,12 @@ export default function CampGroundDetail() {
               <Heading size="xs" textTransform="uppercase">
                 price
               </Heading>
-              <Text pt="2" fontSize="sm">
-                {data?.price}
-              </Text>
+
+              <HStack>
+                <Text pt="2" fontSize="sm">
+                  ￦ {data?.price.toLocaleString()}
+                </Text>
+              </HStack>
             </Box>
             <Box>
               <Heading size="xs" textTransform="uppercase">
@@ -112,7 +116,11 @@ export default function CampGroundDetail() {
                 Pet friendly
               </Heading>
               <Text pt="2" fontSize="sm">
-                {data?.pet_friendly}
+                {data?.pet_friendly ? (
+                  <Text>반려동물 가능합니다</Text>
+                ) : (
+                  <Text>아쉽지만 이 캠핑장은 반려동물을 이용할 수 없어요</Text>
+                )}
               </Text>
             </Box>
             <Box>
@@ -120,7 +128,11 @@ export default function CampGroundDetail() {
                 EV Friendly
               </Heading>
               <Text pt="2" fontSize="sm">
-                {data?.ev_friendly}
+                {data?.ev_friendly ? (
+                  <Text>충전이 가능해요!</Text>
+                ) : (
+                  <Text>아쉽지만 충전이 불가능합니다.</Text>
+                )}
               </Text>
             </Box>
 

@@ -1,6 +1,7 @@
 import { QueryFunctionContext } from "@tanstack/react-query"
 import axios from "axios"
 import Cookie from "js-cookie"
+import { IUploadCampGroundVariables } from "./types"
 
 const instance = axios.create({
     baseURL: "http://127.0.0.1:8000/api/v1/",
@@ -56,18 +57,7 @@ export const emailLogin = ({ email, password }: IEmailLoginVariables) => {
 //   "detail": "Invalid Credentials"
 
 
-interface IUploadCampGroundVariables {
-    name: string;
-    address: string;
-    description: string;
-    price: number;
-    files: FileList;
-    check_in: string;
-    check_out: string;
-    ratings: number;
-    pet_friendly: boolean;
-    ev_friendly: boolean;
-}
+
 
 export const createCampGround = (variables: IUploadCampGroundVariables) => {
     return instance.post("camping/", variables, {
@@ -75,5 +65,9 @@ export const createCampGround = (variables: IUploadCampGroundVariables) => {
             "X-CSRFToken": Cookie.get("csrftoken") || "",
             "Content-Type": "multipart/form-data",
         }
-    })
+    }).then((response)=>response.data)
+}
+
+export const getTag = () => {
+    return instance.get("tag/").then((response) => response.data)
 }

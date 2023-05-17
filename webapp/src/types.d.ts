@@ -39,3 +39,42 @@ export interface ICampGroundDetail {
     ev_friendly: boolean;    
 }
 
+export interface IUploadCampGroundVariables {
+    name: string;
+    address: string;
+    description: string;
+    price: number;
+    files: FileList;
+    check_in: string;
+    check_out: string;
+    ratings: number;
+    pet_friendly: boolean;
+    ev_friendly: boolean;
+    tags: number[];
+}
+
+
+export interface IUploadCampGroundSuccess {
+    id: number;
+    name: string;
+    address: string;
+    description: string;
+    price: number;
+    tags: ITag[];
+    photos: IPhoto[];
+    owner: IOwner
+    check_in: string;
+    check_out: string;
+    ratings: number;
+    pet_friendly: boolean;
+    ev_friendly: boolean;
+    created_at: string;
+    updated_at: string;
+
+}
+
+export interface IUploadCampGroundError {
+    message: string;
+
+}
+

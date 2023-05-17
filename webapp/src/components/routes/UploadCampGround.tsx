@@ -6,6 +6,7 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  Grid,
   HStack,
   Heading,
   Input,
@@ -19,15 +20,30 @@ import {
 } from "@chakra-ui/react";
 import ProtectedPage from "../ProtectedPage";
 import { useForm } from "react-hook-form";
-import { FaFile, FaWonSign } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
-import { createCampGround } from "../../api";
+import { FaWonSign } from "react-icons/fa";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createCampGround, getTag } from "../../api";
+import {
+  ICampGroundDetail,
+  ITag,
+  IUploadCampGroundError,
+  IUploadCampGroundSuccess,
+  IUploadCampGroundVariables,
+} from "../../types";
+import { useNavigate } from "react-router-dom";
 
 export default function UploadCampGround() {
+  const { register, handleSubmit, watch } =
+    useForm<IUploadCampGroundVariables>();
   const toast = useToast();
+  const navigate = useNavigate();
+  const { isLoading: tagIsLoading, data: tagData } = useQuery<ITag[]>(
+    ["getTag"],
+    getTag
+  );
 
   const mutation = useMutation(createCampGround, {
-    onSuccess: () => {
+    onSuccess: (data: IUploadCampGroundSuccess) => {
       toast({
         title: "sucess!!!",
         status: "success",
@@ -35,12 +51,14 @@ export default function UploadCampGround() {
         position: "bottom-right",
         isClosable: true,
       });
+      navigate(`/camping/${data.id}`);
     },
   });
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any) => {
+
+  const onSubmit = (data: IUploadCampGroundVariables) => {
     mutation.mutate(data);
   };
+
   return (
     <ProtectedPage>
       <Box>
@@ -125,10 +143,6 @@ export default function UploadCampGround() {
             </FormControl>
             {/* 캠핑장사진 끝  */}
 
-            {/* 캠핑장태그 시작 */}
-
-            {/* 캠핑장태그 끝 */}
-
             {/* 캠핑장 체크인 시작 */}
             <FormControl isRequired>
               <FormLabel>캠핑장을 언제갔나요?</FormLabel>
@@ -176,8 +190,9 @@ export default function UploadCampGround() {
             {/* 캠핑장 반려동물 시작 */}
 
             <FormControl>
-              <FormLabel>반려동물 가능한가요?</FormLabel>
-              <Checkbox {...register("pet_friendly")} type="checkbox" />
+              <Checkbox {...register("pet_friendly")} type="checkbox">
+                반려동물 가능한가요?
+              </Checkbox>
               <FormHelperText fontSize={"xs"}>
                 꼭 강아지가 아니여도됩니다.
               </FormHelperText>
@@ -186,16 +201,46 @@ export default function UploadCampGround() {
 
             {/* 캠핑장 전기차충전 시작 */}
             <FormControl>
-              <FormLabel>전기차 충전이 가능한가요?</FormLabel>
-              <Checkbox {...register("ev_friendly")} type="checkbox" />
+              <Checkbox {...register("ev_friendly")} type="checkbox">
+                전기차 충전이 가능한가요?
+              </Checkbox>
               <FormHelperText fontSize={"xs"}>
                 돈을 내도 괜찮아요. 가능 불가능인지만 표시해주세요
               </FormHelperText>
             </FormControl>
             {/* 캠핑장 전기차충전 끝 */}
+            {/* 태그 시작 */}
+
+            <FormControl>
+              <FormLabel>캠핑장 태그를 선택해주세요</FormLabel>
+              <Grid templateColumns={"repeat(2, 1fr)"}>
+                {tagData?.map((tag) => {
+                  return (
+                    <Checkbox
+                      mt={2}
+                      size={"sm"}
+                      colorScheme="green"
+                      key={tag.id}
+                      {...register("tags")}
+                      value={tag.id}
+                    >
+                      {tag.name}
+                    </Checkbox>
+                  );
+                })}
+              </Grid>
+            </FormControl>
+            {/* 태그 끝 */}
             {/* button  */}
-            <Box w={"100%"} mb={5}>
-              <Button isLoading={mutation.isLoading} w={"100%"} type="submit">
+            <Box w={"100%"}>
+              <Button
+                mt={4}
+                mb={10}
+                colorScheme="green"
+                isLoading={mutation.isLoading}
+                w={"100%"}
+                type="submit"
+              >
                 등록
               </Button>
               {/* button  */}
