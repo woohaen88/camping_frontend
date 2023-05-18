@@ -45,7 +45,7 @@ export default function CampGround({
   price,
 }: ICampGroundSchema) {
   return (
-    <Link to={`/camping/${id}/`}>
+    <Link to={`/camping/${id}/`} >
       <VStack key={id} alignItems={"flex-start"}>
         <Box rounded={"2xl"} overflow={"hidden"} w={"100%"} minH={"180px"}>
           <Image

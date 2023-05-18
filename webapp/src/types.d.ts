@@ -1,4 +1,4 @@
-export interface ITag{
+export interface ITag {
     id: number;
     name: string;
 }
@@ -36,7 +36,7 @@ export interface ICampGroundDetail {
     created_at: string;
     updated_at: string;
     pet_friendly: boolean;
-    ev_friendly: boolean;    
+    ev_friendly: boolean;
 }
 
 export interface IUploadCampGroundVariables {
@@ -78,3 +78,25 @@ export interface IUploadCampGroundError {
 
 }
 
+
+// Auth
+export interface ISignUpVariable {
+    email: string;
+    password1: string;
+    password2: string;
+    username: string;
+}
+
+export interface ISignUpForm {
+    email: string;
+    password1: string;
+    password2: string;
+    username: string;
+}
+
+export interface ISignUpSuccess {
+    email: string;
+    password1: string;
+    password2: string;
+    username: string;
+}
