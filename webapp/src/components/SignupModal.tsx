@@ -42,8 +42,8 @@ export default function SignupModal({ onClose, isOpen }: SignupModalProps) {
   const mutation = useMutation(createUser, {
     onSuccess: () => {
       toast({
-        title: "유저 생성 완료",
-        description: "유저가 생성되었습니다.",
+        title: "Message",
+        description: "회원가입을 축하합니다.",
         status: "success",
         position: "bottom-right",
       });
