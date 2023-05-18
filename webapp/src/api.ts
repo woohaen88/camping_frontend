@@ -78,3 +78,13 @@ export const createUser = (variables: ISignUpVariable) => {
         headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" }
     }).then((response) => response.data)
 }
+
+
+// *********** Social Login ***********
+// Kakao
+
+export const kakaoLogin = (code: string) => {
+    return instance.post("user/kakao/", { code }, {
+        headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" }
+    }).then((respone) => respone.data)
+}
