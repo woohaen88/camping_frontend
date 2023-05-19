@@ -4,7 +4,9 @@ import Cookie from "js-cookie"
 import { ISignUpVariable, IUploadCampGroundVariables } from "./types"
 
 const instance = axios.create({
-    baseURL: "http://127.0.0.1:8000/api/v1/",
+    baseURL: process.env.NODE_ENV === "development"
+        ? "http://127.0.0.1:8000/api/v1/"
+        : "https://campground-fyx7.onrender.com/api/v1/",
     withCredentials: true, // 쿠키를 전송
 })
 
