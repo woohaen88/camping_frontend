@@ -3,12 +3,13 @@ import { FaComment, FaGithub } from "react-icons/fa";
 
 export default function SocialLogin() {
   let kakaoParams = {
-    client_id: "6408fc447b17985e6b90fda998a24e56",
-    redirect_uri: "http://127.0.0.1:3000/social/kakao",
+    client_id: process.env.REACT_APP_KAKAO_REST_API_KEY || "",
+    redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI || "",
     response_type: "code",
   };
 
   let kakaoSearchParams = new URLSearchParams(kakaoParams);
+
   const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?${kakaoSearchParams.toString()}`;
 
   return (

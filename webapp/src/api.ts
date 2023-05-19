@@ -86,5 +86,5 @@ export const createUser = (variables: ISignUpVariable) => {
 export const kakaoLogin = (code: string) => {
     return instance.post("user/kakao/", { code }, {
         headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" }
-    }).then((respone) => respone.data)
+    }).then((respone) => respone.status)
 }
