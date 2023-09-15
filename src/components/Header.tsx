@@ -1,21 +1,63 @@
-import { Box, HStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  HStack,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightAddon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { FaSearch, FaBars } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <Box>
-      <HStack
+      <Stack
+        direction={{ sm: "column", md: "row" }}
         px={"20"}
         py={"5"}
         justifyContent={"space-between"}
-        borderBottomWidth={1}
+        borderBottomWidth={1.5}
         borderBottomColor={"blackAlpha.200"}
       >
-        <Box w="70px" h="10" bg="red.500" />
+        <Link to="/">
+          <Text as={"b"} fontSize={"2xl"}>
+            Camping
+          </Text>
+        </Link>
 
-        <Box w="400px" h="10" bg="red.500" />
+        <InputGroup w={"sm"} colorScheme="green">
+          <Input type="text" placeholder="검색시작하기" />
+          <InputRightAddon children={<FaSearch />} />
+        </InputGroup>
 
-        <Box w="180px" h="10" bg="red.500" />
-      </HStack>
+        <HStack>
+          <Avatar name="양" size={"md"} />
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<FaBars />}
+              variant="outline"
+            />
+            <MenuList>
+              <Link to="api/v1/users/signin">
+                <MenuItem>Sign In</MenuItem>
+              </Link>
+              <Link to="/api/v1/users/signup">
+                <MenuItem>Sign Up</MenuItem>
+              </Link>
+            </MenuList>
+          </Menu>
+        </HStack>
+      </Stack>
     </Box>
   );
 }
