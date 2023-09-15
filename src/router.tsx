@@ -3,6 +3,7 @@ import Home from "./routes/Home";
 import Root from "./components/Root";
 import NotFound from "./routes/NotFound";
 import About from "./routes/About";
+import Detail from "./routes/Detail";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "about/",
         element: <About />,
+      },
+      {
+        path: "campgrounds/:campgroundId",
+        element: <Detail />,
       },
     ],
   },
