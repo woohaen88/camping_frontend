@@ -1,7 +1,12 @@
 import { Box, Grid } from "@chakra-ui/react";
 import Camping from "../components/Camping";
+import { useQuery } from "@tanstack/react-query";
+import { getCampgroundALL } from "../api";
 
 export default function Home() {
+  const { isLoading, data } = useQuery(["campgrounds"], getCampgroundALL);
+  console.log("data");
+  console.log(data);
   return (
     <Box px={20} py={5}>
       <Grid

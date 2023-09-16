@@ -13,7 +13,11 @@ export default function Camping({ id }: ICamping) {
           place holder ddddddddddddddddddddddddddd
         </Box>
       </Link>
-      <VStack px={"1.5"} alignSelf={"flex-start"} spacing={"1"}>
+      <VStack
+        px={{ md: "1.5", lg: "8" }}
+        alignSelf={"flex-start"}
+        spacing={"1"}
+      >
         <HStack alignSelf={"flex-start"}>
           <Text>여기에 캠핑장이름 ㅋㅋ</Text>
           <Text>4.86</Text>
